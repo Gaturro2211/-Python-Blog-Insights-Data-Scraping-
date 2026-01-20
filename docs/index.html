@@ -3,101 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Insider Analytics | Gaturro2211</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Gaturro2211 | Data Analytics Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #306998; --secondary: #ffd43b; --text: #334155; --light: #f1f5f9; }
-        body { font-family: 'Poppins', sans-serif; background-color: #e2e8f0; margin: 0; padding: 20px; color: var(--text); }
-        .dashboard { max-width: 1000px; margin: 20px auto; background: white; border-radius: 25px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+        :root { --primary: #306998; --secondary: #ffd43b; --bg: #f4f7f9; --dark: #2c3e50; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg); margin: 0; padding: 20px; color: var(--dark); line-height: 1.6; }
+        .container { max-width: 950px; margin: auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
         
         /* Encabezado */
-        .hero { background: var(--primary); color: white; padding: 40px; text-align: center; }
-        .hero h1 { margin: 0; font-size: 2.5rem; }
-        .hero p { opacity: 0.9; font-weight: 300; }
+        header { text-align: center; border-bottom: 4px solid var(--secondary); margin-bottom: 30px; padding-bottom: 20px; }
+        .date-badge { float: right; background: var(--primary); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; }
+        h1 { color: var(--primary); margin: 10px 0; font-size: 2.2rem; }
 
-        /* Contenido */
-        .content { padding: 40px; }
-        .section-title { border-left: 5px solid var(--secondary); padding-left: 15px; margin-bottom: 20px; color: var(--primary); }
+        /* Secciones de Información */
+        .grid-info { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
+        .info-card { background: #edf2f7; padding: 20px; border-radius: 12px; border-left: 5px solid var(--primary); }
+        h3 { color: var(--primary); margin-top: 0; border-bottom: 1px solid #cbd5e0; padding-bottom: 5px; }
 
-        /* Tarjetas de Intro */
-        .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px; }
-        .card { background: var(--light); padding: 20px; border-radius: 15px; }
-        .card h3 { margin-top: 0; font-size: 1.1rem; color: var(--primary); }
+        /* Tabla de Top Palabras */
+        .analysis-section { margin-top: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; }
+        th { background: var(--primary); color: white; padding: 12px; text-align: left; }
+        td { padding: 12px; border-bottom: 1px solid #e2e8f0; }
+        .bar { height: 8px; background: var(--primary); border-radius: 4px; }
 
-        /* Tabla Estilizada */
-        .table-container { background: white; border: 1px solid #e2e8f0; border-radius: 15px; padding: 20px; margin-bottom: 40px; }
-        table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; padding: 12px; background: #f8fafc; color: var(--primary); }
-        td { padding: 12px; border-bottom: 1px solid #f1f5f9; }
-        .badge-count { background: var(--secondary); padding: 2px 10px; border-radius: 10px; font-weight: 600; }
+        /* Cuadro de Summary (Estadísticas) */
+        .summary-box { background: #fffaf0; border: 2px dashed var(--secondary); padding: 20px; border-radius: 12px; margin-top: 30px; }
+        .summary-grid { display: flex; justify-content: space-around; text-align: center; }
+        .stat-item { flex: 1; }
+        .stat-value { font-size: 1.5rem; font-weight: bold; color: var(--primary); }
 
-        /* Zona de Descargas */
-        .download-zone { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
-        .btn { text-align: center; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: 600; transition: 0.3s; border: none; cursor: pointer; }
-        .btn-raw { background: #cbd5e1; color: #1e293b; }
-        .btn-clean { background: var(--primary); color: white; }
-        .btn-sum { background: var(--secondary); color: #1e293b; }
-        .btn:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
-
-        footer { text-align: center; padding: 20px; font-size: 0.8rem; color: #94a3b8; }
+        /* Botones de Descarga */
+        .download-area { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 30px; }
+        .btn { text-align: center; padding: 15px; border-radius: 10px; text-decoration: none; font-weight: bold; transition: 0.3s; color: white; }
+        .btn-raw { background: #718096; }
+        .btn-clean { background: var(--primary); }
+        .btn-sum { background: #d69e2e; }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
     </style>
 </head>
 <body>
 
-<div class="dashboard">
-    <div class="hero">
-        <h1>🐍 Python Insider Analytics</h1>
-        <p>Análisis de Tendencias y Scrapeo Estático por <b>@Gaturro2211</b></p>
-    </div>
+<div class="container">
+    <span class="date-badge">Fecha: Enero 2026</span>
+    <header>
+        <h1>🐍 Python Insider: Hub de Inteligencia</h1>
+        <p>Análisis Profesional por <strong>@Gaturro2211</strong></p>
+    </header>
 
-    <div class="content">
-        <h2 class="section-title">Información del Proyecto</h2>
-        <div class="intro-grid">
-            <div class="card">
-                <h3>🌐 ¿Qué es este sitio?</h3>
-                <p>Este es un portal de visualización de datos que procesa la información más reciente del blog <b>Python Insider</b>. El objetivo es monitorear el desarrollo del lenguaje en tiempo real.</p>
-            </div>
-            <div class="card">
-                <h3>📝 Contenido y Metodología</h3>
-                <p>Utilizamos <b>BeautifulSoup</b> para extraer de forma estática los titulares. Analizamos el estado de las versiones, fechas de lanzamiento y parches de seguridad.</p>
-            </div>
+    <div class="grid-info">
+        <div class="info-card">
+            <h3>📖 ¿Qué es este sitio?</h3>
+            <p>Es una plataforma de visualización de datos diseñada para monitorear el blog oficial <b>Python Insider</b>. Aquí transformamos el código HTML del blog en información estructurada para entender el futuro del lenguaje.</p>
         </div>
-
-        <h2 class="section-title">Contexto del Desarrollo</h2>
-        <p>Actualmente, la comunidad de Python está en una transición crítica hacia la versión <b>3.15</b>. Los datos muestran un ciclo de lanzamientos acelerado, donde los anuncios "Alpha" sirven para que los desarrolladores prueben nuevas funcionalidades antes del lanzamiento oficial.</p>
-
-        <h2 class="section-title">📊 Análisis de Frecuencia (Top Palabras)</h2>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Término Detectado</th>
-                        <th>Ocurrencias</th>
-                        <th>Categoría</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td><b>python</b></td><td><span class="badge-count">7</span></td><td>General</td></tr>
-                    <tr><td><b>alpha</b></td><td><span class="badge-count">5</span></td><td>Versión</td></tr>
-                    <tr><td><b>now</b></td><td><span class="badge-count">3</span></td><td>Estado</td></tr>
-                    <tr><td><b>available</b></td><td><span class="badge-count">3</span></td><td>Disponibilidad</td></tr>
-                    <tr><td><b>another</b></td><td><span class="badge-count">1</span></td><td>Contexto</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h2 class="section-title">📥 Descarga de Activos</h2>
-        <p>Puedes obtener los reportes generados en formato CSV para tu propio análisis:</p>
-        <div class="download-zone">
-            <a href="https://github.com/Gaturro2211/proyecto-blog-python/raw/main/data/posts_python_blog.csv" class="btn btn-raw">📄 Datos Brutos</a>
-            <a href="https://github.com/Gaturro2211/proyecto-blog-python/raw/main/data/posts_python_blog_procesado.csv" class="btn btn-clean">🧹 Datos Limpios</a>
-            <a href="https://github.com/Gaturro2211/proyecto-blog-python/raw/main/data/top_palabras_titulos.csv" class="btn btn-sum">📊 Top Palabras</a>
+        <div class="info-card">
+            <h3>⚙️ Metodología y Contenido</h3>
+            <p>Implementamos <b>Scrapeo Estático</b> mediante la librería BeautifulSoup4. El contenido incluye títulos, enlaces y análisis de frecuencia de términos clave en los últimos 20 lanzamientos oficiales.</p>
         </div>
     </div>
 
-    <footer>
-        &copy; 2026 Gaturro2211 - Herramientas Digitales para el Análisis de Datos
-    </footer>
+    <div class="analysis-section">
+        <h3>📊 Análisis de Frecuencia (Top Palabras)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Palabra Clave</th>
+                    <th>Frecuencia</th>
+                    <th>Tendencia Visual</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>python</td><td>7</td><td><div class="bar" style="width: 100%;"></div></td></tr>
+                <tr><td>alpha</td><td>5</td><td><div class="bar" style="width: 70%;"></div></td></tr>
+                <tr><td>available</td><td>3</td><td><div class="bar" style="width: 45%;"></div></td></tr>
+                <tr><td>now</td><td>3</td><td><div class="bar" style="width: 45%;"></div></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="summary-box">
+        <h3>📝 Cuadro Comparativo (Summary)</h3>
+        <div class="summary-grid">
+            <div class="stat-item">
+                <div class="stat-value">20+</div>
+                <div class="stat-label">Registros Procesados</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">31.4</div>
+                <div class="stat-label">Promedio Longitud Título</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">3.15</div>
+                <div class="stat-label">Versión más Mencionada</div>
+            </div>
+        </div>
+        <p style="font-size: 0.8rem; margin-top: 15px; color: #666;">* El análisis refleja un fuerte enfoque en el ciclo de vida Alpha de Python 3.15 durante el último trimestre.</p>
+    </div>
+
+    <h3 style="margin-top: 40px; text-align: center;">📥 Zona de Descarga de Archivos</h3>
+    <div class="download-area">
+        <a href="https://github.com/Gaturro2211/proyecto-blog-python/raw/main/data/posts_python_blog.csv" class="btn btn-raw">📄 Descargar Raw</a>
+        <a href="https://github.com/Gaturro2211/proyecto-blog-python/raw/main/data/posts_python_blog_procesado.csv" class="btn btn-clean">🧹 Descargar Clean</a>
+        <a href="https://github.com/Gaturro2211/proyecto-blog-python/raw/main/data/top_palabras_titulos.csv" class="btn btn-sum">📈 Descargar Summary</a>
+    </div>
+
+    <p style="text-align: center; color: #a0aec0; font-size: 0.8rem; margin-top: 40px;">
+        © 2026 Gaturro2211 | Facultad de Herramientas Digitales
+    </p>
 </div>
 
 </body>
